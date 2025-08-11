@@ -6,8 +6,9 @@ from categories.views import CategoryListView
 from listings.views import (
     ListingListCreateView,
     ListingDetailView,
-    MyListingsView, # <--- Import the new view
+    MyListingsView,
 )
+from reviews.views import ReviewListCreateView # <--- Import the review view
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -37,7 +38,6 @@ urlpatterns = [
         UserProfileView.as_view(),
         name='user_profile' # The "me" endpoint
     ),
-    # --- ADDING NEW ENDPOINT HERE ---
     path(
         'users/me/listings/',
         MyListingsView.as_view(),
@@ -62,5 +62,11 @@ urlpatterns = [
         'listings/<slug:slug>/', # Captures the slug from the URL
         ListingDetailView.as_view(), # Handles GET (retrieve), PUT/PATCH (update), DELETE
         name='listing-detail'
+    ),
+    # --- ADDING NEW ENDPOINT HERE ---
+    path(
+        'listings/<slug:listing_slug>/reviews/', # Nested under a specific listing
+        ReviewListCreateView.as_view(),
+        name='listing-reviews'
     ),
 ]
