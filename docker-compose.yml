@@ -1,0 +1,84 @@
+# We specify the version of the Docker Compose file format.
+# This helps Docker Compose to parse it correctly.
+# version: '3.8'
+
+# This is the main section where we define all our services (containers).
+services:
+  # 1. The Django Web Application Service
+  web:
+    # 'build: .' tells Docker Compose to build an image from the Dockerfile
+    # located in the current directory (our project root).
+    build: .
+    # The command to execute when the container starts.
+    # It overrides the default CMD in the Dockerfile if needed.
+    # This runs the Django development server.
+    command: python manage.py runserver 0.0.0.0:8000
+    # Volumes mount the project directory on the host to a directory inside the container.
+    # This allows for hot-reloading: changes on your host machine's code
+    # are immediately reflected in the container without rebuilding.
+    volumes:
+      - ./src:/app
+      - ./data:/app/data
+    # This maps port 8000 on the host to port 8000 in the container,
+    # so we can access our web app from our browser via localhost:8000.
+    ports:
+      - "8000:8000"
+    # Environment variables for the Django application.
+    # It's better to use a .env file for sensitive data, which we will do next.
+    env_file:
+      - ./.env
+    # This ensures that the 'web' service starts only after the 'db' and 'redis'
+    # services are up and healthy.
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  # 2. The PostgreSQL Database Service
+  db:
+    # We use a specific image for PostgreSQL 16 with PostGIS extension.
+    # As of August 2025, we assume this tag is stable.
+    image: postgis/postgis:16-3.4
+    # A volume to persist the database data.
+    # 'postgres_data' is a named volume managed by Docker.
+    # This ensures your data is saved even if you remove the container.
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    # Environment variables to configure the PostgreSQL container.
+    # These create the database and user on the first run.
+    # IMPORTANT: We will move these to a .env file.
+    env_file:
+      - ./.env
+    # Expose the PostgreSQL port to the host for direct database access if needed.
+    ports:
+      - "5432:5432"
+    # Healthcheck to verify that the database is ready to accept connections.
+    # The 'web' service will wait for this to pass.
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # 3. The Redis Service
+  redis:
+    # We use a specific Redis image version from our plan.
+    image: redis:7.2-alpine # Using a stable, common version close to the plan
+    # A volume to persist Redis data.
+    volumes:
+      - redis_data:/data
+    # Expose the Redis port to the host.
+    ports:
+      - "6379:6379"
+    # Healthcheck to verify Redis is running.
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+# Top-level 'volumes' declaration to create the named volumes.
+volumes:
+  postgres_data:
+  redis_data:

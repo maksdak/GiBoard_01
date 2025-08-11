@@ -1,0 +1,26 @@
+# ===== CORE DJANGO =====
+Django==5.2.4
+gunicorn==23.0.0
+
+# ===== API & FRAMEWORK =====
+djangorestframework==3.16.0
+djangorestframework-simplejwt==5.5.0
+django-cors-headers==4.7.0
+django-filter==24.3
+
+# ===== DATABASE =====
+psycopg[binary]==3.2.1
+
+# ===== UTILITIES =====
+django-environ==0.12.0
+
+# ===== ADMIN INTERFACE =====
+django-mptt==0.17.0
+django-import-export==4.3.8
+django-solo==2.4.0
+
+# ===== INTERNATIONALIZATION =====
+django-modeltranslation==0.19.9
+
+# ===== MEDIA & FILES =====
+Pillow==10.4.0

@@ -1,0 +1,59 @@
+[
+  {
+    "name": "Vehicles",
+    "slug": "vehicles",
+    "children": [
+      { "name": "Cars", "slug": "cars" },
+      { "name": "Motorcycles", "slug": "motorcycles" },
+      { "name": "Boats & Watercraft", "slug": "boats-watercraft" }
+    ]
+  },
+  {
+    "name": "Property",
+    "slug": "property",
+    "children": [
+      { "name": "For Sale", "slug": "property-for-sale" },
+      { "name": "For Rent", "slug": "property-for-rent" }
+    ]
+  },
+  {
+    "name": "Jobs",
+    "slug": "jobs",
+    "children": [
+      { "name": "Full-time", "slug": "jobs-full-time" },
+      { "name": "Part-time", "slug": "jobs-part-time" }
+    ]
+  },
+  {
+    "name": "Electronics",
+    "slug": "electronics",
+    "children": [
+      { "name": "Computers & Laptops", "slug": "computers-laptops" },
+      { "name": "Phones & Tablets", "slug": "phones-tablets" }
+    ]
+  },
+  {
+    "name": "Home & Garden",
+    "slug": "home-garden",
+    "children": [
+      { "name": "Furniture", "slug": "furniture" },
+      { "name": "Appliances", "slug": "appliances" }
+    ]
+  },
+  {
+    "name": "Services",
+    "slug": "services",
+    "children": [
+      { "name": "Health & Beauty", "slug": "health-beauty" },
+      { "name": "Legal & Financial", "slug": "legal-financial" }
+    ]
+  },
+  {
+    "name": "Community",
+    "slug": "community",
+    "children": [
+      { "name": "Events", "slug": "events" },
+      { "name": "Lost & Found", "slug": "lost-found" }
+    ]
+  }
+]

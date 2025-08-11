@@ -1,0 +1,15 @@
+[
+  {
+    "country_name": "Gibraltar",
+    "country_code": "GI",
+    "cities": [
+      {
+        "name": "Gibraltar",
+        "location": {
+          "longitude": -5.353585,
+          "latitude": 36.140751
+        }
+      }
+    ]
+  }
+]
